@@ -29,8 +29,6 @@ app.use(express.static(__dirname+'/webcontent/static/scripts/angular-animate'));
 
 var peerIntf = require('./hyperledgerpeerintf');
 
-
-
 //var dots = require("dot").process({ path: "./views"});
 require("dot").process({
 	templateSettings : {
@@ -66,9 +64,98 @@ app.get("/", function(req, res) {
 		console.log(" Error retrieving initial hyperledger info "+e);
 		return res.send(render.HyperlegerExplorer(0));
 	}
-
-
 });
+
+app.get("/txrate", function(req, res) {
+    var txRateData = JSON.stringify(getTxRate());
+    res.send(txRateData);
+});
+
+var getTxRate = function() {
+	/*if(!newBlockArrived) {
+        console.log('return');
+		return;
+    }*/
+	newBlockArrived = false;
+	var endSecs = -1;
+	var txnRate = 0;
+	var blkRate = 0;
+	var txnCount = 0;
+	var txnLatency = 0;
+	var currTime;
+	var blkTxGraph = {
+		block : [],
+		txs: []
+	}
+	var txRateGraph = {"time":[],"txRate":[]}
+	var blkRateGraph = {"time":[],"blkRate":[]}
+	statsData = {
+		"checkTime" : "",
+		"avgTxnLatency" : "",
+		"txnRate": "",
+		"mineRate": "",
+		"txRateGraph":txRateGraph,
+		"blkRateGraph":blkRateGraph
+	};
+
+    console.log('height: ' + ledgerData.chain.height);
+	for (var i = ledgerData.chain.height - 1; i > 0; i--) {
+		if(txRateGraph.time.length == 20)
+			break;
+		var block = ledgerData.blocks[i];
+		if (!block || !block.nonHashData || !block.transactions)
+			continue;
+
+		if (blkTxGraph.block.length < 20) {
+			blkTxGraph.block.push(i);
+			blkTxGraph.txs.push(block.transactions.length);
+		}
+		if (endSecs < 0) {
+			endSecs = block.nonHashData.localLedgerCommitTimestamp.seconds;
+			currTime = new Date(null);
+			currTime.setSeconds(endSecs);
+			currTime = currTime.toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
+		}
+		if (block.nonHashData.localLedgerCommitTimestamp.seconds >= (endSecs - 10)) {
+			blkRate++;
+			for (var k = 0; k < block.transactions.length; k++) {
+				txnRate++;
+				txnCount++;
+				txnLatency += (block.nonHashData.localLedgerCommitTimestamp.seconds - block.transactions[k].timestamp.seconds);
+			}
+		} else {
+			//console.log("new row " , txRateGraph.time.length);
+			txnRate = Math.round(txnRate/10);
+			blkRate = Math.round(blkRate/10);
+
+			statsData = {
+				"checkTime" : currTime,
+				"avgTxnLatency" : Math.round((txnLatency/txnCount)*1000),
+				"txnRate": txnRate,
+				"mineRate": blkRate
+			}
+
+
+			txRateGraph.time. push( currTime);
+			txRateGraph.txRate. push( txnRate);
+
+			blkRateGraph.time. push( currTime);
+			blkRateGraph.blkRate. push( blkRate);
+
+			endSecs = -1;
+			txnRate = 0;
+			blkRate = 0;
+			txnCount = 0;
+			txnLatency = 0;
+		}
+
+	}
+
+	statsData = {
+		"txnRate": statsData.txnRate,
+	}
+    return statsData;
+}
 
 app.get('/block/:blockNum', function(req, res) {
 	try {

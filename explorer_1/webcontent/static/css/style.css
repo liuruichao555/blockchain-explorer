@@ -914,3 +914,5 @@ button:hover {
 	text-shadow: 0 1px 1px steelblue;
 	background: steelblue;
 }
+#ch_tx {margin-top: -5%; padding-left: 27%;}
+#appr_tx {margin-top: -3%; padding-left: 27%;}

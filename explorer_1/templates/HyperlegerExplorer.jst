@@ -19,18 +19,20 @@ limitations under the License.-->
 			<script src = "/angular-animate.min.js"></script>
 		<script src = "/socket.io.js"></script>
 		<script src = "/scripts.js"></script>
-     		<script src="http://d3js.org/d3.v2.js"></script>
-     		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-     		<link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
+		<script src="/d3.v2.js"></script>
+                <script src="/jquery.min.js"></script>
+                <link href="/aton.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="/style.css">
 		<link rel="stylesheet" type="text/css" href="/font-awesome/css/font-awesome.min.css">
-		<title> Hyperledger Explorer </title>
+		<title> 牛链科技 </title>
 		<meta charset="utf-8">
 	  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		 <div id="header" class="Header" ng-controller="HEADER">
-	    		<h1><i class="fa fa-connectdevelop" aria-hidden="true"></i>&nbsp;Hyperledger Explorer </h1>
+	    		
+	    		<h1><img src="https://www.oxchains.com/images/logo-black.png" height="50xp"/>&nbsp;&nbsp;牛链科技</h1>
 		</div>
+
 		<script>var ledgerData = ((=it.ledgerData));
 		var statsData = ((=it.statsData));
 		</script>
@@ -44,29 +46,29 @@ limitations under the License.-->
 
 	<div id="navigation" class="Navigation" ng-controller="NAVIGATION">
 		<u1>
-			<li><a href="#A" onClick="hide()" ><i class="fa fa-cubes fa-lg" aria-hidden="true"></i>&nbsp; Recent Blocks</a></li>
-			<li><a href="#B" onClick="hide()" ><i class="fa fa-object-group fa-lg" aria-hidden="true"></i>&nbsp;Current State</a></li>
-			<li><a href="#C" onClick="hide()" ><i class="fa fa-search fa-lg" aria-hidden="true"></i>&nbsp;Search</a></li>
-			<li><a href="#D" onClick="hide()" ><i class="fa fa-connectdevelop fa-lg" aria-hidden="true"></i>&nbsp;Network</a></li>
-			<li><a href="#E" onClick="hide()" ><i class="fa fa-dashboard fa-lg" aria-hidden="true"></i>&nbsp;Visualization</a></li>
-			<li><a href="#F" onClick="hide()" ><i class="fa fa-arrows-alt fa-lg" aria-hidden="true"></i>&nbsp;Transactions</a></li>
+			<li><a href="#A" onClick="hide()" ><i class="fa fa-cubes fa-lg" aria-hidden="true"></i>&nbsp; 最新区块</a></li>
+			<li><a href="#B" onClick="hide()" ><i class="fa fa-object-group fa-lg" aria-hidden="true"></i>&nbsp;当前状态</a></li>
+			<li><a href="#C" onClick="hide()" ><i class="fa fa-search fa-lg" aria-hidden="true"></i>&nbsp;搜索</a></li>
+			<li><a href="#D" onClick="hide()" ><i class="fa fa-connectdevelop fa-lg" aria-hidden="true"></i>&nbsp;网络状态</a></li>
+			<li><a href="#E" onClick="hide()" ><i class="fa fa-dashboard fa-lg" aria-hidden="true"></i>&nbsp;可视化分析</a></li>
+			<li><a href="#F" onClick="hide()" ><i class="fa fa-arrows-alt fa-lg" aria-hidden="true"></i>&nbsp;交易</a></li>
 		</u1>
 	</div>
 
 	<div id="block" class="Block" ng-controller="BLOCKS">
 		<a name="A"></a>
 			<div class="Block_title">
-				<h1><i class="fa fa-cubes" aria-hidden="true"></i>&nbsp;<b>Recent Blocks </b></h1>
+				<h1><i class="fa fa-cubes" aria-hidden="true"></i>&nbsp;<b>最新区块 </b></h1>
 			</div>
 
 			<div class="Loading_symbol" ng-show="loader.loading">Loading...</div>
 				<table>
 					<thead>
 						<tr>
-							<th> Block# </th>
-							<th> State Hash </th>
-							<th> Previous Hash </th>
-							<th> Log </th>
+							<th> 区块号 </th>
+							<th> 状态哈希值</th>
+							<th> 上一区块哈希值</th>
+							<th> 日志</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -76,39 +78,39 @@ limitations under the License.-->
 							<td data-label="Previous Hash">{{ info[$index].previousBlockHash | limitTo: 17}}...</td>
 							<td data-label="Log">
 
-							<button ng-click="Update_selected_block($index)"> View </button>
+							<button ng-click="Update_selected_block($index)"> 查看</button>
 							<form action='#openModal2' id="change2" style="display:none;>
 								 <input type="submit" value="Details">
 							</form>
 								<div id="openModal2" class="modalDialog" style="font-size: 120%; text-align:left;">
 								<div>
 									<a href="#close" title="Close" class="close">X</a>
-									<h2 style="text-align:center">Block {{infoc.blockNum}} </h2><hr/>
-									<h2 style="text-align:center"> Extra Non Hash Data</h2>
-										<p> <b> Date: </b> {{ infoc.nonHashData.localLedgerCommitTimestamp.date }} </p>
-										<p> <b> Seconds: </b> {{ infoc.nonHashData.localLedgerCommitTimestamp.seconds}}	</p>
-										<p> <b> Nanos: </b> {{ infoc.nonHashData.localLedgerCommitTimestamp.nanos}}	</p>
-										<p> <b> Consensus Metadata: </b> {{ infoc.consensusMetadata}} </p>
-										<p> <b> Transaction Results: </b> {{ infoc.nonHashData.transactionResults}}	</p>
+									<h2 style="text-align:center">区块号 {{infoc.blockNum}} </h2><hr/>
+									<h2 style="text-align:center"> 额外的非哈希数据</h2>
+										<p> <b> 时间: </b> {{ infoc.nonHashData.localLedgerCommitTimestamp.date }} </p>
+										<p> <b> 时间戳: </b> {{ infoc.nonHashData.localLedgerCommitTimestamp.seconds}}	</p>
+										<p> <b> 纳秒: </b> {{ infoc.nonHashData.localLedgerCommitTimestamp.nanos}}	</p>
+										<p> <b> 共识元数据: </b> {{ infoc.consensusMetadata}} </p>
+										<p> <b> 交易结果: </b> {{ infoc.nonHashData.transactionResults}}	</p>
 										<hr>
-									<h2 style="text-align:center" > Full Hash </h2>
-										<p> <b> State Hash: </b>  {{ infoc.stateHash}} </p>
-										<p> <b> Previous Hash: </b> {{ infoc.previousBlockHash }} </p>
+									<h2 style="text-align:center" > 哈希数据 </h2>
+										<p> <b> 状态哈希: </b>  {{ infoc.stateHash}} </p>
+										<p> <b> 上一区块哈希: </b> {{ infoc.previousBlockHash }} </p>
 										<hr>
-									<h2 style="text-align:center">Transaction Information</h2>
-										<h4>Total number of transactions: {{ infoc.transactions.length }} </h4>
+									<h2 style="text-align:center">交易信息</h2>
+										<h4>交易总数: {{ infoc.transactions.length }} </h4>
 										<div ng-repeat="transactions in infoc.transactions">
-											<p style="text-align:center"> <b>Transaction#</b> {{ $index+1 }} </p>
-											<p> <b>ChaincodeID:</b> {{transactions.chaincodeID }}</p>
-											<p> <b>UUID:</b> {{ transactions.txid }} </p>
-											<p> <b>Date:</b> {{ transactions.date }} </p>
-											<p> <b>Seconds:</b> {{ transactions.timestamp.seconds}} </p>
-											<p> <b>Nanos:</b> {{ transactions.timestamp.nanos}} </p>
-											<p> <b>Level:</b> {{ transactions.confidentialityLevel }} </p>
-											<p> <b>Payload:</b> {{ transactions.payload }} </p>
-											<p> <b>Nonce:</b> {{ transactions.nonce }} </p>
-											<p> <b>Cert:</b> {{ transactions.cert }} </p>
-											<p> <b>Signature:</b> {{ transactions.signature }} </p>
+											<p style="text-align:center"> <b>交易#</b> {{ $index+1 }} </p>
+											<p> <b>合约ID:</b> {{transactions.chaincodeID }}</p>
+											<p> <b>交易ID:</b> {{ transactions.txid }} </p>
+											<p> <b>时间:</b> {{ transactions.date }} </p>
+											<p> <b>时间戳:</b> {{ transactions.timestamp.seconds}} </p>
+											<p> <b>纳秒:</b> {{ transactions.timestamp.nanos}} </p>
+											<p> <b>保密级别:</b> {{ transactions.confidentialityLevel }} </p>
+											<p> <b>交易信息:</b> {{ transactions.payload }} </p>
+											<p> <b>随机值:</b> {{ transactions.nonce }} </p>
+											<p> <b>证书:</b> {{ transactions.cert }} </p>
+											<p> <b>签名:</b> {{ transactions.signature }} </p>
 											<hr>
 										</div>
 		 						</div>
@@ -122,24 +124,24 @@ limitations under the License.-->
 		<a name="B"></a>
 
 		<div  class="Block_title">
-			<h1> <b> <i class="fa fa-object-group" aria-hidden="true"></i>&nbsp;Current State of the BlockChain </b> </h1>
+			<h1> <b> <i class="fa fa-object-group" aria-hidden="true"></i>&nbsp;区块链的当前状态 </b> </h1>
 		</div>
 			<div class="Current_info {{ info.cssClass }}">
-				<text> <b>Height: </b> {{ info.height }} </text>
-				<p> <b>Current Hash:</b> {{ info.currentBlockHash }} </p>
-				<p> <b>Previous Hash:</b> {{ info.previousBlockHash }} </p>
+				<text> <b>区块高度: </b> {{ info.height }} </text>
+				<p> <b>当前哈希值:</b> {{ info.currentBlockHash }} </p>
+				<p> <b>上一区块哈希值:</b> {{ info.previousBlockHash }} </p>
 			</div>
 	</div>
 
 	<div id="search" class="Search" ng-controller="SEARCH">
 		<a name="C"></a>
 			<div  class="Block_title">
-				<h1><i class="fa fa-search" aria-hidden="true"></i>&nbsp;Search</h1>
+				<h1><i class="fa fa-search" aria-hidden="true"></i>&nbsp;搜索</h1>
 			</div>
 			<div class="Search_top">
-				<input type = "text" ng-model="response" placeholder= "UUID/Block number">
-				<button id="flip" ng-click="search()"> Search </button>
-				<button ng-click="clear()"> Clear </button>
+				<input type = "text" ng-model="response" placeholder= "交易编号/区块号">
+				<button id="flip" ng-click="search()"> 搜索 </button>
+				<button ng-click="clear()"> 清除 </button>
 			</div>
 			<div id="panel" class="Panel" style="display:none">
 				<div class="Results">
@@ -153,27 +155,27 @@ limitations under the License.-->
 					<p> {{ text7 }} </p>
 				</div>
 				<form action='#openModal' id="change" style="display:none;" class="Results_button">
-					<input class="Submit" type="submit" value="View Transaction Details">
+					<input class="Submit" type="submit" value="查看交易细节">
 				</form>
 			</div>
 
 			<div id="openModal" class="modalDialog" style="font-size: 120%; text-align:left;">
 				<div>
 					<a href="#close" title="Close" class="close">X</a>
-					<h2 style="text-align:center">Transaction Information</h2>
-						<h4>Total number of transactions: {{ info.transactions.length }} </h4>
+					<h2 style="text-align:center">交易信息</h2>
+						<h4>总交易数: {{ info.transactions.length }} </h4>
 						<div ng-repeat="transactions in info.transactions" >
-							<p style="text-align:center"> <b>Transaction#</b> {{ $index+1 }} </p>
-							<p> <b>ChaincodeID:</b> {{transactions.chaincodeID }}</p>
-							<p> <b>UUID:</b> {{ transactions.txid }} </p>
-							<p> <b>Date: </b> {{ transactions.date}} </p>
-							<p> <b>Seconds:</b> {{ transactions.timestamp.seconds}} </p>
-							<p> <b>Nanos:</b> {{ transactions.timestamp.nanos}} </p>
-							<p> <b>Level:</b> {{ transactions.confidentialityLevel }} </p>
-							<p> <b>Payload:</b> {{ transactions.payload }} </p>
-							<p> <b>Nonce:</b> {{ transactions.nonce }} </p>
-							<p> <b>Cert:</b> {{ info.transactions.cert }} </p>
-							<p> <b>Signature:</b> {{ info.transactions.signature }} </p>
+							<p style="text-align:center"> <b>交易#</b> {{ $index+1 }} </p>
+							<p> <b>合约ID:</b> {{transactions.chaincodeID }}</p>
+							<p> <b>交易ID:</b> {{ transactions.txid }} </p>
+							<p> <b>时间: </b> {{ transactions.date}} </p>
+							<p> <b>时间戳:</b> {{ transactions.timestamp.seconds}} </p>
+							<p> <b>纳秒:</b> {{ transactions.timestamp.nanos}} </p>
+							<p> <b>保密级别:</b> {{ transactions.confidentialityLevel }} </p>
+							<p> <b>交易信息:</b> {{ transactions.payload }} </p>
+							<p> <b>随机值:</b> {{ transactions.nonce }} </p>
+							<p> <b>证书:</b> {{ info.transactions.cert }} </p>
+							<p> <b>签名:</b> {{ info.transactions.signature }} </p>
 							<hr>
 						</div>
 				</div>
@@ -184,17 +186,17 @@ limitations under the License.-->
 		<a name="D"></a>
 
 		<div class="Block_title">
-			<h1><b><i class="fa fa-connectdevelop" aria-hidden="true"></i>&nbsp;Network Information</b></h1>
+			<h1><b><i class="fa fa-connectdevelop" aria-hidden="true"></i>&nbsp;网络状态</b></h1>
 		</div>
-			<p style="padding-left:20px;">Number of Peers connected to Network:  {{ info.peers.length}}</p>
+			<p style="padding-left:20px;">连接到网络的节点数:  {{ info.peers.length}}</p>
 			<div class="Network_child">
 				<table>
 					<thead>
 						<tr>
-							<th> Name </th>
-							<th> Address</th>
-							<th> Type</th>
-							<th> PKIID</th>
+							<th> 节点名称</th>
+							<th> 节点地址</th>
+							<th> 节点类型</th>
+							<th> 证书ID</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -213,33 +215,33 @@ limitations under the License.-->
 	<div id="graph" class="Graph" onmouseover="lock();" onmouseout="redraw();">
 		<a name="E"></a>
 		<div class="Block_title">
-			<h1><b><i class="fa fa-dashboard" aria-hidden="true"></i>&nbsp;Visualization</b></h1>
+			<h1><b><i class="fa fa-dashboard" aria-hidden="true"></i>&nbsp;可视化分析</b></h1>
 		</div>
 				<div style="width:100%">
 				<div id="performance" class="Performance" ng-controller="GRAPH">
 					<div id="top" class="Top" style="margin-left:0px">
-						<h2> <i class="fa fa-wpforms" aria-hidden="true"></i>&nbsp;Performance </h2>
+						<h2> <i class="fa fa-wpforms" aria-hidden="true"></i>&nbsp;性能</h2>
 					</div>
 					<table class="PerfData">
                         <tr class="none">
-												  <td class="param">Time</td><td class="val">{{ checkTime }}</td>
+												  <td class="param">时间</td><td class="val">{{ checkTime }}</td>
 												</tr>
 												<tr class="none">
-                        <td class="param">Avg. Txn Latency</td><td class="val">{{ avgTxnLatency }}<span class="measure">ms</span>
+                        <td class="param">平均交易延迟</td><td class="val">{{ avgTxnLatency }}<span class="measure">ms</span>
                         <i class="fa fa-arrow-up" style="color:#ff3300;" aria-hidden="true" ng-if="avgTxnLatencySc > 0"></i>
                         <i class="fa fa-arrow-down" style="color:#00ff00;" aria-hidden="true" ng-if="avgTxnLatencySc < 0"></i>
                         <i class="fa fa-minus" style="color:#3399ff;" aria-hidden="true" ng-if="avgTxnLatencySc == 0"></i>
                         </td>
                         </tr>
                         <tr class="none">
-                        <td class="param">Transaction Rate</td><td class="val">{{ txnRate }} <span class="measure">/sec</span>
+                        <td class="param">交易速率</td><td class="val">{{ txnRate }} <span class="measure">/sec</span>
                         <i class="fa fa-arrow-up" style="color:#00ff00; " aria-hidden="true" ng-if="txnRateSc > 0"></i>
                         <i class="fa fa-arrow-down" style="color:#ff3300; " aria-hidden="true" ng-if="txnRateSc < 0"></i>
                         <i class="fa fa-minus" style="color:#3399ff; " aria-hidden="true" ng-if="txnRateSc == 0"></i>
                         </td>
                         </tr>
                         <tr class="none">
-                        <td class="param">Mining Rate</td><td class="val"> {{ mineRate }}<span class="measure">blocks/sec</span>
+                        <td class="param">生成速率</td><td class="val"> {{ mineRate }}<span class="measure">blocks/sec</span>
                         <i class="fa fa-arrow-up" style="color:#00ff00; " aria-hidden="true" ng-if="mineRateSc > 0"></i>
                         <i class="fa fa-arrow-down" style="color:#ff3300; " aria-hidden="true" ng-if="mineRateSc < 0"></i>
                         <i class="fa fa-minus" style="color:#3399ff; " aria-hidden="true" ng-if="mineRateSc == 0"></i>
@@ -275,14 +277,14 @@ limitations under the License.-->
 
 				<div id="tx_rate_cont" ng-controller="TX_RATE" ng-mouseover="focus=true;" ng-mouseout="checkChg();">
 					<div id="top" class="Top">
-						<h2> <i class="fa fa-line-chart" aria-hidden="true"></i>&nbsp;Transaction Rate </h2>
+						<h2> <i class="fa fa-line-chart" aria-hidden="true"></i>&nbsp;交易速率 </h2>
 					</div>
 						     <canvas id="tx_rate"></canvas>
 				</div>
 
 				<div id="blk_rate_cont" ng-controller="BLK_RATE">
                     <div id="top" class="Top">
-                        <h2> <i class="fa fa-line-chart" aria-hidden="true"></i>&nbsp;Block Rate </h2>
+                        <h2> <i class="fa fa-line-chart" aria-hidden="true"></i>&nbsp;区块生成速率 </h2>
                     </div>
                              <canvas id="blk_rate"></canvas>
                 </div>
@@ -290,21 +292,21 @@ limitations under the License.-->
                 <div style="width:100%">
                 <div id="blk_tx_cont"  class="Performance" ng-controller="BLK_TX">
                     <div id="top" class="Top">
-                        <h2> <i class="fa fa-bar-chart" aria-hidden="true"></i>&nbsp;Transactions per Block </h2>
+                        <h2> <i class="fa fa-bar-chart" aria-hidden="true"></i>&nbsp;交易量/区块</h2>
                     </div>
                              <canvas id="blk_tx"></canvas>
                 </div>
 
                 <div id="ch_tx_cont"  class="Performance" ng-controller="CH_TX">
                     <div id="top" class="Top">
-                        <h2> <i class="fa fa-pie-chart" aria-hidden="true"></i>&nbsp;Transactions per Chaincode </h2>
+                        <h2> <i class="fa fa-pie-chart" aria-hidden="true"></i>&nbsp;交易量/合约</h2>
                     </div><br/>
                              <canvas id="ch_tx"></canvas>
                 </div>
 
                  <div id="appr_tx_cont"  class="Performance" ng-controller="APPR_TX">
                     <div id="top" class="Top">
-                        <h2> <i class="fa fa-pie-chart" aria-hidden="true"></i>&nbsp;Approved/Rejected transactions </h2>
+                        <h2> <i class="fa fa-pie-chart" aria-hidden="true"></i>&nbsp;接收/拒绝交易量</h2>
                     </div><br/>
                              <canvas id="appr_tx"></canvas>
                 </div>
@@ -322,20 +324,20 @@ limitations under the License.-->
 	<div id="trans" class="Trans" ng-controller="TRANSACTIONS">
 		<a name="F"></a>
 			<div class="Block_title">
-				<h1><b><i class="fa fa-arrows-alt" aria-hidden="true"></i>&nbsp;Latest Transactions</b></h1>
-				<p> Display number of Transactions: <input type="number" step="1", min="1", max="{{trans.length}}", ng-model="row_amount2"/>
+				<h1><b><i class="fa fa-arrows-alt" aria-hidden="true"></i>&nbsp;最新交易</b></h1>
+				<p> 显示交易数: <input type="number" step="1", min="1", max="{{trans.length}}", ng-model="row_amount2"/>
 			</div>
 
 			<div class="Loading_symbol" ng-show="loader.loading">Loading..</div>
 					<table>
 						<thead>
 							<tr>
-								<th> Block# Origin </th>
-								<th> Seconds</th>
-								<th> Nanos</th>
+								<th> 区块号 </th>
+								<th> 时间戳</th>
+								<th> 纳秒</th>
 								<th> ID </th>
-								<th> UUID </th>
-								<th> Details </th>
+								<th> 交易号 </th>
+								<th> 详述 </th>
 							</tr>
 						</thead>
 						<tbody>
@@ -347,7 +349,7 @@ limitations under the License.-->
 								<td data-label="UUID">{{ trans[$index].txid | limitTo : 13}}...</td>
 								<td data-label="Details">
 
-										<button ng-click="Update_transaction_selection_index($index)"> Expand </button>
+										<button ng-click="Update_transaction_selection_index($index)"> 扩展 </button>
 									<form action='#openModal3' id="change3" style="display:none">
 										<input type="submit" value="Full Details">
 									</form>
@@ -357,18 +359,18 @@ limitations under the License.-->
 										<div id="openModal3" class="modalDialog" style="font-size: 120%; text-align:left;">
 											<div>
 												<a href="#close" title="Close" class="close">X</a>
-												<h2 style="text-align:center" >Transaction Information</h2>
+												<h2 style="text-align:center" >交易信息</h2>
 													<div>
-														<p> <b>Type:</b> {{transs.type }}</p>
-														<p> <b>ID:</b> {{ transs.chaincodeID }} </p>
-														<p> <b>Date: </b> {{ transs.date }} </p>
-														<p> <b>Seconds:</b> {{ transs.timestamp.seconds}} </p>
-														<p> <b>Nanos:</b> {{ transs.timestamp.nanos}} </p>
-														<p> <b>UUID:</b> {{ transs.txid }} </p>
-														<p> <b>Payload:</b> {{ transs.payload }} </p>
-														<p> <b>Confidence Level:</b> {{ transs.confidentialityLevel }} </p>
-														<p> <b>Cert:</b> {{ transs.cert }} </p>
-														<p> <b>Signature:</b> {{ transs.signature }} </p>
+														<p> <b>类型:</b> {{transs.type }}</p>
+														<p> <b>合约ID:</b> {{ transs.chaincodeID }} </p>
+														<p> <b>时间: </b> {{ transs.date }} </p>
+														<p> <b>时间戳:</b> {{ transs.timestamp.seconds}} </p>
+														<p> <b>纳秒:</b> {{ transs.timestamp.nanos}} </p>
+														<p> <b>交易ID:</b> {{ transs.txid }} </p>
+														<p> <b>交易信息:</b> {{ transs.payload }} </p>
+														<p> <b>保密级别:</b> {{ transs.confidentialityLevel }} </p>
+														<p> <b>证书:</b> {{ transs.cert }} </p>
+														<p> <b>签名:</b> {{ transs.signature }} </p>
 														<hr>
 													</div>
 											</div>
