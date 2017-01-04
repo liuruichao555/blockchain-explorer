@@ -55,8 +55,15 @@ var render = require( __dirname + "/webcontent/dynamic/");
 var ledgerData = { "chain" : { "height" : 0} , "peers" : {} , "blocks" : []};
 var statsData = null;
 app.get("/", function(req, res) {
-
 	try {
+        // 数据太多超出V8限制(JSON.stringify)
+        var blocks = ledgerData['blocks'];
+        var showBlockNum = 10;
+        var startIndex = 0;
+        if (blocks.length > showBlockNum) {
+            startIndex = blocks.length - showBlockNum;
+        }
+        ledgerData['blocks'] = blocks.slice(startIndex, startIndex + showBlockNum);
 		var ledgerDataStr = JSON.stringify(ledgerData);
 		var statsDataStr = JSON.stringify(statsData);
 		res.send(render.HyperlegerExplorer({'ledgerData' : ledgerDataStr , 'statsData':statsDataStr}));
