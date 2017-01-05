@@ -3,6 +3,3 @@ hyperledgerpeerintf/node_modules/
 node_modules/
 resources/bower_components/
 templates/HyperlegerExplorer.jst.bak
-webcontent/static/css/font-awesome/
-webcontent/static/scripts/
-
